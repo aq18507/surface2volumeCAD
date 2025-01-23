@@ -21,6 +21,7 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
     ![Open](figures/2025-01-23-11-43-00-image.png) 
   
 4. Now you will be presented with this window
+
   ![Selection](figures/2025-01-23-12-41-24-image.png) 
   Important here is that
   a) you select **Convert Model** in the **Import Type**,
