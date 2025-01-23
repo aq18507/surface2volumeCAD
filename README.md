@@ -1,4 +1,4 @@
-# Guide to converting a surface to a volume file
+# Guide to converting a surface to a volume file to perform Boolian operations in GMSH
 
 This guide explains how a surface CAD file can be converted to a volume file
 
@@ -57,10 +57,6 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
 Attached to this repository is a the working `.geo` GMSH file as shown below:
 
 ```
-// Import 'rkn_stp.stp' file which is converted from faces to a solid. Note that the built in CAD kernel cannot pass on any
-// surfaces or lines only Volumes. Hence why the conversion from surface to volume is needed and the surfaces cannot be 
-// formend into a Volume in OpenCASCADE from geometries passed on from the built-in CAD kernel.
-//Merge "rkn_stp.stp";
 Merge "rkn_new.stp";
 
 // Change 'Built In' kernel to 'OpenCASCADE'
@@ -73,3 +69,25 @@ Box(3) = {-500, 3100, -100, 3000, -6500, 220};
 BooleanDifference{ Volume{3}; }{ Volume{1}; Delete; }
 BooleanDifference{ Volume{3}; }{ Volume{2}; Delete; }
 ```
+The way this script works as follows:
+
+```
+Merge "rkn_new.stp";
+```
+
+This line imports 'rkn_new.stp' file which is converted from faces to a solid. Note that the built in CAD kernel cannot pass on any surfaces or lines only Volumes. Hence why the conversion from surface to volume is needed and the surfaces cannot be formend into a Volume in OpenCASCADE from geometries passed on from the built-in CAD kernel. Hence why we converted the file into a volume file in the previous step.
+
+```
+SetFactory("OpenCASCADE");
+```
+
+Changes the 'Built In' kernel to 'OpenCASCADE' so that boolian operations can be performed on the imported part.
+
+```
+Box(3) = {-500, 3100, -100, 3000, -6500, 220};
+```
+
+Draws a box (Volume) around it the 'rkn_new.stp' file.
+
+> [!IMPORTANT]
+> 
