@@ -24,25 +24,46 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
   
 4. Now you will be presented with this window
 
-    ![Selection](figures/2025-01-23-12-41-24-image.png)
+    ![Selection](figures/Screenshot 2025-01-23 151120.png)
 
   Important here is that
   a) you select **Convert Model** in the **Import Type**,
   b) and only select **Surfaces** in **Object Filters** and
-  c) that you select the **Stitch** option in the **Part Options** → **Surfaces**
+  c) that you select the **Individual** option in the **Part Options** → **Surfaces**
   Once that is done click **OK**
-  
-5. This has now automatically converted the file into solids, and you will be presented with a window that looks something like this
 
-    ![](figures/2025-01-23-12-48-36-image.png)
+5. This has now imported all surfaces individually which looks something like this
+
+    ![](figures/Screenshot 2025-01-23 151444.png)
   
 6. Focusing on the object tree on the left hand side as shown in the figure below
 
-    ![](figures/2025-01-23-12-50-00-image.png)
+    ![](figures/Screenshot 2025-01-23 151623.png)
 
-  We can see the objects `Base 1` and `Base 2`. This means that this consists of `2` volumes, which will be important later when adjusting the `.geo` file.
+  We can see all the individual surfaces. The reason why we need to import them all individually is to check whether there are any surfaces causing singularity issues later in GMSH. For this reason we need to delete all surfaces which are within the body or are adjacent to another surface.
+
+7. This can be done by hovering over the individual surfaces on the object tree on the left hand side which means surfaces `Surf_ABBOQFRLXS, WingGeom, 0`, `Surf_ABBOQFRLXS, WingGeom, 0:1`, `Surf_ABBOQFRLXS, WingGeom, 1` and `Surf_ABBOQFRLXS, WingGeom, 1:1` must be deleted. This can be done by selecting the surface on the object tree and hit the `delete` key on the keyboard or by right clicking onto the surface and select `Delete`. Once this is done the wing should look like this:
+
+    ![](figures/Screenshot 2025-01-23 152610.png)
+
+> [!NOTE]
+> This step can be skipped if there are no such surfaces identified in the model which is possible.
+
+8. Now the surfaces can be converted into a solid. This can be done by selecting all surfaces in the object tree (`shift` + `click`) and by selecting the `Stitch` tool which is in **3D model** → **Surface**.
+
+    ![](figures/Screenshot 2025-01-23 153106.png)
+
+    which opens this window
+
+    ![](figures/Screenshot 2025-01-23 153300.png)
+
+    Click `Apply` and then `Done`.
+
+    If it was successful, the object tree should now show the stitched surface like this
+
+    ![](figures/Screenshot 2025-01-23 154555.png)
   
-7. This can now be exported as `.stp` file. Click **File** → **Export** → **CAD Format**
+9. This can now be exported as `.stp` file. Click **File** → **Export** → **CAD Format**
 
     ![](figures/2025-01-23-12-53-50-image.png) 
 
@@ -59,10 +80,13 @@ Attached to this repository is a the working `.geo` GMSH file as shown below:
 ```
 Merge "rkn_new.stp";
 
+// Change 'Built In' kernel to 'OpenCASCADE'
 SetFactory("OpenCASCADE");
 
+// Draw box (Volume) around it the 'rkn_stp.stp' file.
 Box(3) = {-500, 3100, -100, 3000, -6500, 220};
 
+// Subtract Volume 3 form Volumes 1 and 2, and subsequently deleting Volumes 1 and 2.
 BooleanDifference{ Volume{3}; }{ Volume{1}; Delete; }
 BooleanDifference{ Volume{3}; }{ Volume{2}; Delete; }
 ```
@@ -87,11 +111,4 @@ Box(3) = {-500, 3100, -100, 3000, -6500, 220};
 Draws a box (Volume) around it the 'rkn_new.stp' file.
 
 > [!IMPORTANT]
-> Note that the Volume number must be unique and hence we imported already two surfaces thorough the `.stp` file the box must be volume 3.
-
-```
-BooleanDifference{ Volume{3}; }{ Volume{1}; Delete; }
-BooleanDifference{ Volume{3}; }{ Volume{2}; Delete; }
-```
-
-The final step removes volumes `1` and `2` from volume `3`. Note that this would need to be adjusted if there are a different number of volumes to be removed from the outer volume.
+> Note that this line defines an additional volume. Since we import two volumes from the `rkn_new.stp` file we must denote specify the new box $N_{volumes .stp} + 1$ which is in this case 3. 
