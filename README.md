@@ -18,10 +18,10 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
   ![Import](figures/2025-01-23-09-27-53-image.png)
   
 3. Select `.stp` file (if you can't see the file, then select the **Files of type** as *STEP Files*) and click **Open**. 
-    ![Open](figures\2025-01-23-11-43-00-image.png?msec=1737632580131) 
+    ![Open](figures/2025-01-23-11-43-00-image.png) 
   
 4. Now you will be presented with this window
-  ![](figures\2025-01-23-12-41-24-image.png?msec=1737636084264) 
+  ![](figures/2025-01-23-12-41-24-image.png) 
   Important here is that
   a) you select **Convert Model** in the **Import Type**,
   b) and only select **Surfaces** in **Object Filters** and
@@ -29,14 +29,14 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
   Once that is done click **OK**
   
 5. This has now automatically converted the file into solids, and you will be presented with a window that looks something like this
-  ![](figures\2025-01-23-12-48-36-image.png?msec=1737636517079)
+  ![](figures/2025-01-23-12-48-36-image.png)
   
 6. Focusing on the object tree on the left hand side as shown in the figure below
-  ![](figures\2025-01-23-12-50-00-image.png?msec=1737636600046)
+  ![](figures/2025-01-23-12-50-00-image.png)
   We can see the objects `Base 1` and `Base 2`. This means that this consists of `2` volumes, which will be important later when adjusting the `.geo` file.
   
 7. This can now be exported as `.stp` file. Click **File** → **Export** → **CAD Format**
-  ![](figures\2025-01-23-12-53-50-image.png?msec=1737636830796) 
+  ![](figures/2025-01-23-12-53-50-image.png) 
   and then you are presented with this window
-  ![](figures\2025-01-23-12-55-04-image.png?msec=1737636904092) 
+  ![](figures/2025-01-23-12-55-04-image.png) 
   Click **Save**
