@@ -15,7 +15,7 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
 1. Open Inventor
   
 2. Open file by clicking **File** → **Open** → **Import CAD Files**
-  ![](figure/2025-01-23-09-27-53-image.png)
+  ![](https://github.com/aq18507/blob/main/2025-01-23-09-27-53-image.png)
   
 3. Select `.stp` file (if you can't see the file, then select the **Files of type** as *STEP Files*) and click **Open**. ![](figures\2025-01-23-11-43-00-image.png?msec=1737632580131) 
   
