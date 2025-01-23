@@ -14,17 +14,18 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
 
 1. Open Inventor
   
-2. Open file by clicking **File** → **Open** → **Import CAD Files**
+2. Open file by clicking **File** → **Open** → **Import CAD Files** 
 
-  ![Import](figures/2025-01-23-09-27-53-image.png)
+    ![Import](figures/2025-01-23-09-27-53-image.png)
   
-3. Select `.stp` file (if you can't see the file, then select the **Files of type** as *STEP Files*) and click **Open**. 
+3. Select `.stp` file (if you can't see the file, then select the **Files of type** as *STEP Files*) and click **Open**.    
 
     ![Open](figures/2025-01-23-11-43-00-image.png) 
   
 4. Now you will be presented with this window
 
-  ![Selection](figures/2025-01-23-12-41-24-image.png) 
+    ![Selection](figures/2025-01-23-12-41-24-image.png)
+    
   Important here is that
   a) you select **Convert Model** in the **Import Type**,
   b) and only select **Surfaces** in **Object Filters** and
@@ -38,6 +39,7 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
 6. Focusing on the object tree on the left hand side as shown in the figure below
 
   ![](figures/2025-01-23-12-50-00-image.png)
+
   We can see the objects `Base 1` and `Base 2`. This means that this consists of `2` volumes, which will be important later when adjusting the `.geo` file.
   
 7. This can now be exported as `.stp` file. Click **File** → **Export** → **CAD Format**
@@ -47,5 +49,9 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
   and then you are presented with this window
 
   ![](figures/2025-01-23-12-55-04-image.png) 
-  
+
   Click **Save**
+
+## GMSH
+
+Back in GMSH 
