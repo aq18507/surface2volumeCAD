@@ -25,7 +25,7 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
 4. Now you will be presented with this window
 
     ![Selection](figures/2025-01-23-12-41-24-image.png)
-    
+
   Important here is that
   a) you select **Convert Model** in the **Import Type**,
   b) and only select **Surfaces** in **Object Filters** and
@@ -34,24 +34,42 @@ I have only managed to get the following to work with `.stp` files. Since `.stl`
   
 5. This has now automatically converted the file into solids, and you will be presented with a window that looks something like this
 
-  ![](figures/2025-01-23-12-48-36-image.png)
+    ![](figures/2025-01-23-12-48-36-image.png)
   
 6. Focusing on the object tree on the left hand side as shown in the figure below
 
-  ![](figures/2025-01-23-12-50-00-image.png)
+    ![](figures/2025-01-23-12-50-00-image.png)
 
   We can see the objects `Base 1` and `Base 2`. This means that this consists of `2` volumes, which will be important later when adjusting the `.geo` file.
   
 7. This can now be exported as `.stp` file. Click **File** → **Export** → **CAD Format**
 
-  ![](figures/2025-01-23-12-53-50-image.png) 
+    ![](figures/2025-01-23-12-53-50-image.png) 
 
   and then you are presented with this window
 
-  ![](figures/2025-01-23-12-55-04-image.png) 
+    ![](figures/2025-01-23-12-55-04-image.png) 
 
   Click **Save**
 
 ## GMSH
 
-Back in GMSH 
+Attached to this repository is a the working `.geo` GMSH file as shown below:
+
+```
+// Import 'rkn_stp.stp' file which is converted from faces to a solid. Note that the built in CAD kernel cannot pass on any
+// surfaces or lines only Volumes. Hence why the conversion from surface to volume is needed and the surfaces cannot be 
+// formend into a Volume in OpenCASCADE from geometries passed on from the built-in CAD kernel.
+//Merge "rkn_stp.stp";
+Merge "rkn_new.stp";
+
+// Change 'Built In' kernel to 'OpenCASCADE'
+SetFactory("OpenCASCADE");
+
+// Draw box (Volume) around it the 'rkn_stp.stp' file.
+Box(3) = {-500, 3100, -100, 3000, -6500, 220};
+
+// Subtract Volume 3 form Volumes 1 and 2, and subsequently deleting Volumes 1 and 2.
+BooleanDifference{ Volume{3}; }{ Volume{1}; Delete; }
+BooleanDifference{ Volume{3}; }{ Volume{2}; Delete; }
+```
